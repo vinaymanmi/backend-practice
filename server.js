@@ -7,6 +7,8 @@ const mongoose = require("mongoose");
 //importing api functions from userdata.js
 const {createAccount,loginAccount} = require("./controllers/userdata");
 
+const {createNotebook,retrieveNotebook,updateNotebook} = require("./controllers/notebook")
+
 require("dotenv").config();
 const port = process.env.port;
 const mongodb_url = process.env.mongodb_url;
@@ -21,6 +23,10 @@ app.use(express.json());
 
 app.post("/create-account",createAccount); //to create new account
 app.post("/login",loginAccount);
+
+app.post("/create-notebook",createNotebook)
+app.get("/retrieve-notebook",retrieveNotebook)
+app.put("/update-notebook",updateNotebook)
 
 mongoose.connect(mongodb_url)
     .then(() => {
