@@ -4,8 +4,8 @@ dns.setServers(['1.1.1.1', '8.8.8.8']);
 const express = require("express");
 const mongoose = require("mongoose");
 
-//importing api functions
-const {createAccount} = require("./controllers/userdata");
+//importing api functions from userdata.js
+const {createAccount,loginAccount} = require("./controllers/userdata");
 
 require("dotenv").config();
 const port = process.env.port;
@@ -19,7 +19,8 @@ app.use(express.json());
 //     res.send("API");
 // })
 
-app.post("/createAccount",createAccount); //to create new account
+app.post("/create-account",createAccount); //to create new account
+app.post("/login",loginAccount);
 
 mongoose.connect(mongodb_url)
     .then(() => {

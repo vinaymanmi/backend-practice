@@ -28,4 +28,26 @@ const createAccount=async (req,res) => {
     }    
 }
 
-module.exports={createAccount}
+const loginAccount = async (req,res) => {
+    try {
+        const {username,password}=req.body; //login by username and password
+        const user = await userdata.findOne({username});
+        if(!user){
+            return res.send("User not found");
+        }
+        if(user.password !== password){
+            return res.send("invalid password");
+        }
+        res.json({
+            message:"login successfully",
+            user:{
+                username:user.username,
+                email:user.email
+            }
+        });
+    } catch (e) {
+        res.send("Error",e.message);
+    }
+}
+
+module.exports={createAccount,loginAccount}
